@@ -12,6 +12,8 @@ import { extract } from "./tools/extract.js";
 import { publish } from "./tools/publish.js";
 import { list } from "./tools/list.js";
 import { pipeline } from "./tools/pipeline.js";
+import { exportDiagram } from "./tools/export-diagram.js";
+import { uploadImage } from "./tools/upload-image.js";
 import { isFlowMindConfigured } from "./utils/config.js";
 
 const server = new Server(
@@ -109,6 +111,63 @@ const tools = [
     },
   },
   {
+    name: "kbb_export_diagram",
+    description:
+      "Export a draw.io diagram to PNG. Takes draw.io XML (mxGraphModel format), " +
+      "saves as .drawio file, and exports to high-resolution PNG using the drawio CLI. " +
+      "Returns the PNG path and a placeholder_id for use with kbb_publish and kbb_upload_image.",
+    inputSchema: {
+      type: "object" as const,
+      properties: {
+        xml: {
+          type: "string",
+          description: "Draw.io XML content (mxGraphModel format)",
+        },
+        filename: {
+          type: "string",
+          description: "Base filename without extension (e.g. 'decision-flow'). Used as placeholder_id.",
+        },
+        output_directory: {
+          type: "string",
+          description: "Directory to save the .drawio and .png files. Defaults to system temp directory.",
+        },
+        scale: {
+          type: "number",
+          description: "Export scale factor (default: 2 for high-res)",
+        },
+      },
+      required: ["xml"],
+    },
+  },
+  {
+    name: "kbb_upload_image",
+    description:
+      "Upload an image to a FlowMind note, replacing a {{IMG:placeholder_id}} in the content. " +
+      "Use after kbb_publish to add diagrams to a published article.",
+    inputSchema: {
+      type: "object" as const,
+      properties: {
+        note_id: {
+          type: "string",
+          description: "The FlowMind note ID (returned by kbb_publish)",
+        },
+        image_path: {
+          type: "string",
+          description: "Path to the PNG image file (returned by kbb_export_diagram)",
+        },
+        placeholder_id: {
+          type: "string",
+          description: "The placeholder ID to replace (e.g. 'decision_flow' replaces {{IMG:decision_flow}})",
+        },
+        alt: {
+          type: "string",
+          description: "Alt text for the image",
+        },
+      },
+      required: ["note_id", "image_path", "placeholder_id"],
+    },
+  },
+  {
     name: "kbb_pipeline",
     description:
       "Run the full knowledge base pipeline: ingest files → convert to markdown → return content for analysis. " +
@@ -169,6 +228,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           };
         }
         result = await list(args as unknown as Parameters<typeof list>[0]);
+        break;
+      case "kbb_export_diagram":
+        result = await exportDiagram(args as unknown as Parameters<typeof exportDiagram>[0]);
+        break;
+      case "kbb_upload_image":
+        if (!isFlowMindConfigured()) {
+          return {
+            content: [{ type: "text" as const, text: "FlowMind 未配置。请运行 ./setup.sh 或手动创建 ~/.flowmind/config.json" }],
+            isError: true,
+          };
+        }
+        result = await uploadImage(args as unknown as Parameters<typeof uploadImage>[0]);
         break;
       case "kbb_pipeline":
         result = await pipeline(args as unknown as Parameters<typeof pipeline>[0]);

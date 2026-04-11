@@ -76,24 +76,39 @@ chmod 600 ~/.flowmind/config.json
 |------|------|
 | `kbb_ingest` | 将目录中的文件转换为 Markdown（使用 MarkItDown） |
 | `kbb_extract` | 读取目录中所有 Markdown 文件的内容 |
-| `kbb_publish` | 将知识文章发布到 FlowMind（需配置） |
+| `kbb_export_diagram` | 将 draw.io XML 导出为高清 PNG 图片 |
+| `kbb_publish` | 将知识文章发布到 FlowMind，支持 `{{IMG:id}}` 图片占位符 |
+| `kbb_upload_image` | 上传图片到 FlowMind 笔记，替换占位符 |
 | `kbb_list` | 列出已发布的知识文章（需配置） |
-| `kbb_pipeline` | 完整流水线：采集 → 提取 → 返回给 Claude 整理 |
+| `kbb_pipeline` | 完整流水线：采集 → 提取 → 返回给 Claude 整理（含图文发布指引） |
 
 ## 使用示例 / Usage Example
 
-假设你在研究降胆固醇药物，已经收集了一些 PDF 和文档到 `~/research/cholesterol/` 目录：
+假设你在研究睡眠质量改善，已经收集了一些资料到 `~/research/sleep/` 目录：
 
 ```
-你: "把 ~/research/cholesterol/ 目录下的文件处理成知识库文章，主题是降胆固醇药物"
+你: "把 ~/research/sleep/ 目录下的文件处理成知识库文章，主题是睡眠质量改善"
 ```
 
 Claude 会自动：
 1. 调用 `kbb_pipeline` 将所有文件转换为 Markdown
 2. 阅读所有内容，提取关键知识点
 3. 组织成结构化的知识文章
-4. 如果安装了 Draw.io MCP，生成药物作用机制图
-5. 如果配置了 FlowMind，发布到知识管理平台
+4. 生成图表（决策流程图、对比矩阵等）并导出为 PNG
+5. 发布到 FlowMind，图片自动嵌入文章
+
+### 图文发布流程
+
+KBB 支持在文章中嵌入高清图表，完整流程如下：
+
+```
+Step 1: mcp__drawio__create_diagram(xml)     → 预览图表
+Step 2: kbb_export_diagram(xml, filename)     → 导出为 PNG，返回 placeholder_id
+Step 3: kbb_publish(title, content)           → 发布文章，内容中用 {{IMG:placeholder_id}} 标记图片位置
+Step 4: kbb_upload_image(note_id, png, id)    → 上传 PNG，FlowMind 自动替换占位符为图片
+```
+
+**前置要求**：图表导出需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases)（提供 `drawio` CLI 命令）。
 
 ## 配置 / Configuration
 

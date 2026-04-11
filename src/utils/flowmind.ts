@@ -1,4 +1,6 @@
 import { loadFlowMindConfig, type FlowMindConfig } from "./config.js";
+import { readFileSync } from "fs";
+import { basename } from "path";
 
 let cachedConfig: FlowMindConfig | null = null;
 
@@ -46,10 +48,14 @@ export async function publishNote(title: string, content: string, tags?: string[
     body: JSON.stringify(body),
   }) as Record<string, unknown>;
 
+  // FlowMind API returns { data: { id, ... } }
+  const data = (result.data || result) as Record<string, unknown>;
+  const noteId = String(data.id || data.note_id || "");
+
   return {
     success: true,
-    note_id: String(result.id || result.note_id || ""),
-    url: String(result.url || `https://flowmind.life/notes/${result.id || result.note_id}`),
+    note_id: noteId,
+    url: `https://flowmind.life/notes/${noteId}`,
   };
 }
 
@@ -75,5 +81,58 @@ export async function listNotes(page = 1, limit = 20, tag?: string): Promise<Not
   return {
     notes: (result.notes || result.data || []) as NoteListResult["notes"],
     total: Number(result.total || 0),
+  };
+}
+
+export interface UploadImageResult {
+  success: boolean;
+  image_id: string;
+  placeholder_id: string;
+  url: string;
+  replaced: boolean;
+}
+
+export async function uploadNoteImage(
+  noteId: string,
+  imagePath: string,
+  placeholderId: string,
+  alt?: string,
+): Promise<UploadImageResult> {
+  const config = getConfig();
+  const url = `${config.base_url}/notes/${noteId}/images`;
+
+  const fileData = readFileSync(imagePath);
+  const fileName = basename(imagePath);
+
+  // Build multipart form data manually (Node 18+ fetch supports FormData)
+  const formData = new FormData();
+  formData.append("file", new Blob([fileData], { type: "image/png" }), fileName);
+  formData.append("placeholder_id", placeholderId);
+  if (alt) {
+    formData.append("alt", alt);
+  }
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${config.api_key}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`FlowMind image upload error ${res.status}: ${body}`);
+  }
+
+  const result = await res.json() as Record<string, unknown>;
+  const data = (result.data || result) as Record<string, unknown>;
+
+  return {
+    success: true,
+    image_id: String(data.id || ""),
+    placeholder_id: placeholderId,
+    url: String(data.url || ""),
+    replaced: Boolean(data.replaced),
   };
 }
