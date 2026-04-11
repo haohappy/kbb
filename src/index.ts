@@ -14,6 +14,7 @@ import { list } from "./tools/list.js";
 import { pipeline } from "./tools/pipeline.js";
 import { exportDiagram } from "./tools/export-diagram.js";
 import { uploadImage } from "./tools/upload-image.js";
+import { research } from "./tools/research.js";
 import { isFlowMindConfigured } from "./utils/config.js";
 
 const server = new Server(
@@ -22,6 +23,41 @@ const server = new Server(
 );
 
 const tools = [
+  {
+    name: "kbb_research",
+    description:
+      "Search the web for a topic, fetch relevant articles, and save them as text files. " +
+      "This is the first step in building a knowledge base — gathering raw research materials. " +
+      "The saved files can then be processed by kbb_ingest or kbb_pipeline.",
+    inputSchema: {
+      type: "object" as const,
+      properties: {
+        topic: {
+          type: "string",
+          description: "The research topic to search for",
+        },
+        output_directory: {
+          type: "string",
+          description: "Directory to save fetched articles as .txt files",
+        },
+        queries: {
+          type: "array",
+          items: { type: "string" },
+          description: "Custom search queries. If not provided, auto-generates queries from the topic.",
+        },
+        urls: {
+          type: "array",
+          items: { type: "string" },
+          description: "Specific URLs to fetch directly (skip search, just download these pages).",
+        },
+        num_results: {
+          type: "number",
+          description: "Maximum number of pages to fetch (default: 6)",
+        },
+      },
+      required: ["topic", "output_directory"],
+    },
+  },
   {
     name: "kbb_ingest",
     description:
@@ -210,6 +246,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     let result: unknown;
 
     switch (name) {
+      case "kbb_research":
+        result = await research(args as unknown as Parameters<typeof research>[0]);
+        break;
       case "kbb_ingest":
         result = await ingest(args as unknown as Parameters<typeof ingest>[0]);
         break;

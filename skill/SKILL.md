@@ -11,8 +11,10 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 ## Usage
 
 ```
-/kbb <directory> <topic>                      # full pipeline: ingest → organize → diagrams → publish
-/kbb <directory> <topic> --auto-share         # publish + generate public share link (no login needed to view)
+/kbb <topic>                                  # research + full pipeline (auto-search, no pre-existing files needed)
+/kbb <directory> <topic>                      # full pipeline on existing files: ingest → organize → diagrams → publish
+/kbb <topic> --auto-share                     # research + pipeline + public share link
+/kbb <directory> <topic> --auto-share         # pipeline on existing files + public share link
 /kbb <directory> <topic> --no-pub             # skip publishing, just generate the article locally
 /kbb help                                     # show this help
 ```
@@ -20,18 +22,23 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 ## Examples
 
 <example>
-User: /kbb ~/research/sleep 睡眠质量改善
-Assistant: [Runs full pipeline: ingest files, organize content, generate diagrams, publish to FlowMind with images]
+User: /kbb 40岁男性如何科学增肌
+Assistant: [Searches the web for research, downloads articles, then runs full pipeline: organize → diagrams → publish]
 </example>
 
 <example>
-User: /kbb ./data/cholesterol 降胆固醇药物研究 --auto-share
-Assistant: [Same pipeline, publishes with a public share link anyone can view without login]
+User: /kbb ~/research/sleep 睡眠质量改善
+Assistant: [Uses existing files in the directory, runs full pipeline: ingest → organize → diagrams → publish]
+</example>
+
+<example>
+User: /kbb 间歇性断食的科学依据 --auto-share
+Assistant: [Searches web, builds article, publishes with a public share link anyone can view without login]
 </example>
 
 <example>
 User: /kbb ~/papers/ai-safety AI Safety --no-pub
-Assistant: [Generates article and diagrams locally without publishing to FlowMind]
+Assistant: [Uses existing files, generates article and diagrams locally without publishing]
 </example>
 
 ## Instructions
@@ -41,12 +48,31 @@ When the user invokes `/kbb`, follow this exact workflow:
 ### Step 1: Parse arguments
 
 Extract from the user's input:
-- `directory` — path to the folder of source files (required)
+- `directory` — path to the folder of source files (optional — if omitted, research mode is activated)
 - `topic` — the subject/topic for the knowledge article (required)
 - `--no-pub` — if present, skip FlowMind publishing steps
 - `--auto-share` — if present, generate a public share link (anyone can view without login)
 
-If either `directory` or `topic` is missing, ask the user to provide them.
+**Determine mode:**
+- If `directory` is provided and exists: **File mode** — skip to Step 2
+- If only `topic` is provided (no directory): **Research mode** — go to Step 1.5
+
+If `topic` is missing, ask the user to provide it.
+
+### Step 1.5: Research (when no directory provided)
+
+Call `kbb_research` with:
+- `topic`: the research topic
+- `output_directory`: a temp directory (e.g., `/tmp/kbb-research-<topic-slug>`)
+- `num_results`: 6 (default)
+
+This will search the web, fetch relevant articles, and save them as .txt files.
+
+Report progress: "Searched for '<topic>'. Found X articles, Y successfully downloaded."
+
+Show a brief list of the sources found (title + URL for each).
+
+Set `directory` to the `output_directory` returned, then continue to Step 2.
 
 ### Step 2: Ingest and extract
 
