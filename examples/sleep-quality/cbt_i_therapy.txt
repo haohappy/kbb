@@ -1,0 +1,83 @@
+Cognitive Behavioral Therapy for Insomnia (CBT-I)
+
+CBT-I is recommended as the first-line treatment for chronic insomnia by the American College of Physicians (2016), the European Sleep Research Society (2017), and the British Association for Psychopharmacology (2019). It is preferred over medication because it addresses root causes rather than symptoms, has no side effects, and benefits persist long after treatment ends.
+
+What is CBT-I?
+
+CBT-I is a structured program (typically 4-8 sessions) that identifies and replaces thoughts and behaviors that cause or worsen sleep problems. Unlike sleeping pills, which lose effectiveness over time and can cause dependence, CBT-I produces lasting improvement. A meta-analysis of 20 RCTs found CBT-I reduced sleep onset latency by 19 minutes and wake after sleep onset by 26 minutes, comparable to medication in the short term and superior in the long term.
+
+The Five Components of CBT-I:
+
+1. Sleep Restriction Therapy
+The most counterintuitive but often most effective component. The idea: spending too much time in bed creates fragmented, shallow sleep. By temporarily restricting time in bed to match actual sleep time, sleep drive increases and sleep becomes more consolidated.
+
+Process:
+- Calculate average total sleep time from a 2-week sleep diary (e.g., 5.5 hours)
+- Set a fixed wake time (e.g., 6:00 AM)
+- Set bedtime based on average sleep time (e.g., 12:30 AM)
+- Minimum allowed time in bed: 5 hours (never below this)
+- When sleep efficiency (time asleep / time in bed) exceeds 85% for 5 consecutive days, extend time in bed by 15-30 minutes
+- Repeat until reaching desired sleep duration
+
+Side effects: Initial increased daytime sleepiness (temporary), which actually helps consolidate sleep.
+
+2. Stimulus Control
+The bed and bedroom should only be associated with sleep (and intimacy). This breaks the conditioned association between bed and wakefulness/frustration.
+
+Rules:
+- Go to bed only when sleepy (not just tired)
+- If unable to fall asleep within ~20 minutes, get up and go to another room. Do something calming (reading, gentle music) and return only when sleepy
+- Use the bed only for sleep and sex — no TV, phone, work, eating, or worrying in bed
+- Wake at the same time every morning regardless of sleep quality
+- No daytime napping (initially)
+
+3. Cognitive Restructuring
+Many insomnia patients have catastrophic thoughts about sleep that perpetuate the problem:
+
+Common dysfunctional beliefs:
+- "I need 8 hours of sleep or I can't function" → Reality: Sleep need varies (6-9 hours). Many people function well on less than 8 hours.
+- "If I don't sleep tonight, tomorrow will be terrible" → Reality: One bad night rarely causes significant functional impairment. The anxiety about not sleeping is often more harmful than the sleep loss itself.
+- "I've always been a bad sleeper" → Reality: Insomnia is a learned behavior that can be unlearned.
+- "I should be able to fall asleep instantly" → Reality: Normal sleep onset takes 10-20 minutes.
+
+Technique: Identify the thought → Examine the evidence → Generate a balanced alternative → Test it
+
+4. Sleep Hygiene Education
+(See separate sleep hygiene document for full details)
+Basic environmental and behavioral recommendations. While sleep hygiene alone is usually insufficient for treating insomnia, it forms a necessary foundation for the other CBT-I components.
+
+5. Relaxation Training
+Various techniques to reduce physical and cognitive arousal at bedtime:
+
+- Progressive Muscle Relaxation (PMR): Systematically tensing and relaxing muscle groups. 15-20 minutes. Evidence shows PMR alone reduces sleep onset latency by 10-15 minutes.
+- Deep Breathing (4-7-8 technique): Inhale 4 seconds, hold 7 seconds, exhale 8 seconds. Activates parasympathetic nervous system.
+- Body Scan Meditation: Mindful attention to sensations in each body part, moving from toes to head.
+- Paradoxical Intention: Trying to stay awake instead of trying to fall asleep. Reduces performance anxiety around sleep.
+
+Effectiveness Data:
+
+- Response rate: 70-80% of patients improve
+- Remission rate: 40-50% achieve full remission (no longer meet insomnia criteria)
+- Long-term: Benefits maintained or improved at 6-month and 12-month follow-ups, unlike medication which often shows relapse after discontinuation
+- A landmark study (Jacobs et al., 2004) compared CBT-I vs. Ambien vs. combination: CBT-I was superior to Ambien at 12-month follow-up
+
+Access Options:
+
+1. In-person therapy: Gold standard, but limited by availability of trained therapists, cost ($100-300/session), and time commitment. Find providers: cbti.directory or Psychology Today search for "CBT-I"
+
+2. Digital CBT-I (dCBT-I): Several validated apps:
+   - Insomnia Coach (free, from VA) — good basic program
+   - CBT-i Coach (free, from VA) — complementary tool for use with a therapist
+   - Sleepio — validated in multiple RCTs, used by NHS England
+   - Pear Therapeutics Somryst (now discontinued) — was FDA-cleared
+
+3. Self-guided workbooks:
+   - "Say Good Night to Insomnia" by Gregg Jacobs
+   - "The Insomnia Workbook" by Stephanie Silberman
+   - "Quiet Your Mind and Get to Sleep" by Colleen Carney
+
+Who is CBT-I for?
+- Adults with chronic insomnia (symptoms ≥3 nights/week for ≥3 months)
+- People who want to discontinue sleep medication
+- Insomnia co-occurring with depression, anxiety, chronic pain, or PTSD
+- NOT recommended as sole treatment for: sleep apnea, restless leg syndrome, narcolepsy (these require specific medical treatment)

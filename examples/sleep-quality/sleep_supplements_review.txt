@@ -1,0 +1,92 @@
+Sleep Supplements: What the Science Actually Says
+
+A comprehensive review of common over-the-counter sleep aids and supplements.
+
+1. Melatonin
+
+What it is: A hormone naturally produced by the pineal gland in response to darkness. Available as a supplement in doses from 0.3mg to 10mg.
+
+Evidence:
+- Meta-analysis (Ferracioli-Oda et al., 2013, PLOS ONE): Melatonin reduced sleep onset latency by 7.06 minutes and increased total sleep time by 8.25 minutes. Modest but statistically significant.
+- Most effective for circadian rhythm disorders (jet lag, shift work, delayed sleep phase) rather than primary insomnia.
+- Effective dose: 0.5-3mg taken 30-60 minutes before desired sleep time. Higher doses (5-10mg) are not more effective and may cause next-day grogginess.
+
+Safety: Generally well-tolerated. Does not cause dependence. Possible side effects: vivid dreams, morning grogginess at high doses, headache. Long-term safety data is limited. Not regulated as a drug in the US — quality and dosage accuracy vary widely between brands (actual content ranged from 83% less to 478% more than labeled in one study).
+
+Special populations: May be helpful for children with ADHD or autism-related sleep difficulties (with physician guidance). Elderly produce less natural melatonin, so may benefit more.
+
+2. Magnesium
+
+What it is: An essential mineral involved in 300+ enzymatic reactions. About 50% of US adults are deficient. Available as magnesium glycinate, citrate, threonate, and other forms.
+
+Evidence:
+- A 2012 RCT in elderly subjects (Journal of Research in Medical Sciences) found that 500mg magnesium oxide for 8 weeks improved sleep time, sleep efficiency, and reduced insomnia severity compared to placebo.
+- Magnesium glycinate is preferred for sleep due to better absorption and the calming properties of glycine.
+- Magnesium threonate may cross the blood-brain barrier more effectively.
+
+Mechanism: Activates GABA receptors, regulates melatonin production, reduces cortisol.
+
+Safety: Very safe at recommended doses (200-400mg elemental magnesium). Citrate form may cause loose stools. Contraindicated in severe renal impairment.
+
+3. L-Theanine
+
+What it is: An amino acid found primarily in green tea.
+
+Evidence:
+- A 2019 RCT (Nutrients) found 200mg L-theanine improved sleep quality scores in adults with stress-related sleep issues.
+- Promotes alpha brain wave activity associated with relaxation without sedation.
+- May be more effective for reducing anxiety-related sleep onset problems than for increasing total sleep time.
+
+Safety: Very well tolerated. No dependency risk. Doses of 100-400mg are commonly used. Can be combined with magnesium.
+
+4. Valerian Root
+
+What it is: An herbal extract used for centuries as a sedative.
+
+Evidence:
+- Mixed results in clinical trials. A Cochrane review (2015) concluded that the evidence for valerian improving sleep quality is inconclusive.
+- Some studies show subjective improvement but no objective improvement on polysomnography.
+- May require 2-4 weeks of consistent use to show effects.
+
+Safety: Generally safe. Unpleasant smell and taste. Rare reports of liver toxicity with prolonged use of combination products.
+
+5. Glycine
+
+What it is: A non-essential amino acid.
+
+Evidence:
+- A small Japanese study (2006, 2007) found that 3g glycine before bed improved subjective sleep quality and reduced daytime sleepiness. Participants showed faster transition to slow-wave sleep.
+- Mechanism: Lowers core body temperature by increasing blood flow to extremities.
+
+Safety: Very safe. 3g dose is well tolerated. Also available in magnesium glycinate form.
+
+6. CBD (Cannabidiol)
+
+What it is: A non-psychoactive compound from Cannabis sativa.
+
+Evidence:
+- A 2019 case series (The Permanente Journal) found that 66.7% of patients reported improved sleep scores in the first month, but results fluctuated over time.
+- Limited high-quality RCT evidence specifically for sleep.
+- May help sleep indirectly by reducing anxiety (its most established effect).
+- Dose-dependent: lower doses may be alerting; higher doses (>160mg) may be sedating.
+
+Safety: Generally well-tolerated. Potential drug interactions (CYP450). Quality/purity concerns with unregulated products. Legal status varies.
+
+7. Ashwagandha
+
+What it is: An adaptogenic herb (Withania somnifera).
+
+Evidence:
+- A 2019 RCT (Cureus) found that 300mg twice daily for 10 weeks improved sleep quality and onset latency compared to placebo. The mechanism is primarily through cortisol reduction.
+- A 2020 systematic review found 5 of 5 studies showed improvement in sleep quality measures.
+
+Safety: Generally well-tolerated. May interact with thyroid medications and immunosuppressants. Not recommended during pregnancy.
+
+Summary Ranking (Evidence + Safety):
+1. Magnesium (glycinate) — Strong safety, good evidence, addresses common deficiency
+2. Melatonin (low dose) — Good evidence for circadian issues, well-studied
+3. L-Theanine — Good safety, moderate evidence, especially for anxiety-related sleep
+4. Glycine — Good safety, limited but promising evidence
+5. Ashwagandha — Moderate evidence, good for stress-related sleep issues
+6. Valerian Root — Mixed evidence, generally safe
+7. CBD — Limited evidence, quality concerns

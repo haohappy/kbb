@@ -1,0 +1,43 @@
+Sleep Hygiene: Evidence-Based Guidelines for Better Sleep
+
+The American Academy of Sleep Medicine and the Sleep Research Society recommend that adults should sleep 7 or more hours per night on a regular basis to promote optimal health.
+
+1. Bedroom Environment
+
+Temperature: The ideal bedroom temperature for sleep is 65-68°F (18-20°C). Core body temperature naturally drops during sleep onset, and a cool room facilitates this process. A 2019 study in Science Advances found that even a 1°C increase in nighttime ambient temperature leads to measurable sleep disruption.
+
+Light: Complete darkness is optimal. Even dim light exposure during sleep (as low as 5 lux) has been shown to increase heart rate, reduce heart rate variability, and impair next-morning glucose metabolism (Northwestern University, 2022). Blackout curtains or a sleep mask are recommended.
+
+Noise: Background noise above 40 dB can fragment sleep architecture. White noise machines may help by masking intermittent environmental sounds. A systematic review (2021) found moderate evidence that white noise improved sleep onset latency in hospital patients but limited evidence in healthy adults at home.
+
+Mattress and Pillow: Medium-firm mattresses were associated with better sleep quality and reduced back pain compared to firm mattresses in a randomized controlled trial (The Lancet, 2003). Pillows should maintain cervical spine alignment.
+
+2. Behavioral Practices
+
+Consistent Schedule: Going to bed and waking up at the same time every day (including weekends) is the single most impactful sleep hygiene behavior. Irregular sleep schedules are associated with a 27% higher risk of metabolic syndrome (Sleep, 2019).
+
+Wind-Down Routine: A 30-60 minute pre-sleep routine that avoids stimulating activities. Effective activities include reading (paper books preferred over e-readers), gentle stretching, and meditation. A warm bath 1-2 hours before bed raises then lowers core body temperature, mimicking the natural circadian drop.
+
+Exercise: Regular exercise improves sleep quality, but timing matters. Vigorous exercise should be completed at least 3 hours before bedtime. Morning or afternoon exercise is most beneficial for sleep. A meta-analysis (2015) found that regular exercise reduced sleep onset latency by 55% and increased total sleep time by 18 minutes.
+
+3. Substances to Avoid
+
+Caffeine: Half-life of 5-6 hours. A study in the Journal of Clinical Sleep Medicine (2013) found that caffeine consumed even 6 hours before bedtime significantly disrupted sleep. Recommended cutoff: noon or early afternoon.
+
+Alcohol: While alcohol may reduce sleep onset latency, it significantly disrupts second-half sleep architecture, reducing REM sleep by 20-50% dose-dependently. It also worsens sleep apnea and increases nighttime awakenings.
+
+Nicotine: A stimulant that increases sleep onset latency and reduces total sleep time. Smokers report 4x more non-restorative sleep compared to non-smokers (2019 study of 5,000 adults).
+
+Heavy Meals: Eating within 2-3 hours of bedtime is associated with increased gastroesophageal reflux and disrupted sleep. High-fat meals are particularly problematic. However, a small carbohydrate-rich snack may promote sleep by increasing tryptophan availability.
+
+4. Screen Time and Blue Light
+
+Blue light (wavelength 460-480nm) from screens suppresses melatonin production by up to 85% compared to reading a paper book (Harvard Health, 2014). However, recent research suggests that the stimulating content on screens may be more disruptive than the light itself. Recommendations:
+- Stop screens 1 hour before bed
+- If screens must be used, enable blue light filters (Night Shift, f.lux)
+- Keep screens at arm's length and reduce brightness
+- Avoid engaging content (social media, news, games)
+
+5. Napping Guidelines
+
+Naps can be beneficial for alertness but may impair nighttime sleep if too long or too late. Optimal napping: 10-20 minutes ("power nap") before 3 PM. Naps longer than 30 minutes enter slow-wave sleep, causing sleep inertia upon waking and potentially reducing nighttime sleep drive.
