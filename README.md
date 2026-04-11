@@ -39,7 +39,11 @@ cd kbb
 5. （可选）注册 Draw.io MCP
 6. （可选）配置 FlowMind API
 
-安装完成后，重启 Claude Code 即可使用 `kbb_*` 工具。
+安装完成后，重启 Claude Code，输入：
+
+```
+/kbb ~/your/research/folder 你的研究主题
+```
 
 ## 手动安装 / Manual Installation
 

@@ -136,7 +136,22 @@ else
 fi
 
 # ──────────────────────────────────────────────
-# Step 6 (optional): Register Draw.io MCP
+# Step 6: Install /kbb skill
+# ──────────────────────────────────────────────
+echo "Installing /kbb skill..."
+SKILL_DIR="$HOME/.claude/skills/kbb"
+mkdir -p "$SKILL_DIR"
+cp "$SCRIPT_DIR/skill/SKILL.md" "$SKILL_DIR/SKILL.md" 2>/dev/null
+if [ -f "$SKILL_DIR/SKILL.md" ]; then
+  STATUS_SKILL="installed"
+  info "/kbb skill: installed"
+else
+  STATUS_SKILL="failed"
+  warn "/kbb skill: installation failed (you can copy skill/SKILL.md to ~/.claude/skills/kbb/ manually)"
+fi
+
+# ──────────────────────────────────────────────
+# Step 7 (optional): Register Draw.io MCP
 # ──────────────────────────────────────────────
 echo ""
 echo "── Optional integrations ──"
@@ -207,6 +222,7 @@ info "Node.js:     $STATUS_NODE"
 info "Python:      $STATUS_PYTHON"
 info "MarkItDown:  $STATUS_MARKITDOWN"
 info "KBB MCP:     $STATUS_KBB"
+info "/kbb skill:  $STATUS_SKILL"
 
 if [ "$STATUS_DRAWIO" = "registered" ]; then
   info "Draw.io MCP: $STATUS_DRAWIO"
@@ -221,6 +237,6 @@ else
 fi
 
 echo ""
-echo "Setup complete! Restart Claude Code to use KBB tools."
-echo "Try: kbb_pipeline with a directory of documents."
+echo "Setup complete! Restart Claude Code to use KBB."
+echo "Try: /kbb ~/path/to/documents 你的主题"
 echo ""
