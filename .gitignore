@@ -1,0 +1,9 @@
+node_modules/
+dist/
+output/
+.venv/
+examples/*/_kbb_output/
+.claude/settings.local.json
+.mcp.json
+*.tgz
+.loopwise/

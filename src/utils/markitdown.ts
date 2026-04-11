@@ -28,14 +28,26 @@ except Exception as e:
 
     proc.on("close", (code) => {
       if (code !== 0) {
-        reject(new Error(`MarkItDown failed for ${filePath}: ${stderr}`));
+        if (stderr.includes("ModuleNotFoundError") || stderr.includes("No module named")) {
+          reject(new Error(
+            "MarkItDown 未安装。请运行 ./setup.sh 或手动执行: pip install markitdown"
+          ));
+        } else {
+          reject(new Error(`MarkItDown conversion failed for ${filePath}: ${stderr}`));
+        }
       } else {
         resolve(stdout);
       }
     });
 
     proc.on("error", (err) => {
-      reject(new Error(`Failed to spawn python: ${err.message}`));
+      if (err.message.includes("ENOENT")) {
+        reject(new Error(
+          "Python 解释器未找到。请运行 ./setup.sh 或设置 MARKITDOWN_PYTHON 环境变量"
+        ));
+      } else {
+        reject(new Error(`Failed to spawn python: ${err.message}`));
+      }
     });
   });
 }

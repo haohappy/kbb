@@ -12,6 +12,7 @@ import { extract } from "./tools/extract.js";
 import { publish } from "./tools/publish.js";
 import { list } from "./tools/list.js";
 import { pipeline } from "./tools/pipeline.js";
+import { isFlowMindConfigured } from "./utils/config.js";
 
 const server = new Server(
   { name: "kbb", version: "1.0.0" },
@@ -152,9 +153,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         result = await extract(args as unknown as Parameters<typeof extract>[0]);
         break;
       case "kbb_publish":
+        if (!isFlowMindConfigured()) {
+          return {
+            content: [{ type: "text" as const, text: "FlowMind 未配置。请运行 ./setup.sh 或手动创建 ~/.flowmind/config.json" }],
+            isError: true,
+          };
+        }
         result = await publish(args as unknown as Parameters<typeof publish>[0]);
         break;
       case "kbb_list":
+        if (!isFlowMindConfigured()) {
+          return {
+            content: [{ type: "text" as const, text: "FlowMind 未配置。请运行 ./setup.sh 或手动创建 ~/.flowmind/config.json" }],
+            isError: true,
+          };
+        }
         result = await list(args as unknown as Parameters<typeof list>[0]);
         break;
       case "kbb_pipeline":
