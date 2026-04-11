@@ -1,15 +1,29 @@
 # KBB - 知识库构建器 (Knowledge Base Builder)
 
-一个 Claude Code MCP 服务器，用于从各种文件格式构建结构化知识库。
+一个 Claude Code MCP 服务器，一句话就能把任何主题变成带图表的知识库文章。
 
-An MCP server for Claude Code that builds structured knowledge bases from various file formats.
+An MCP server for Claude Code that turns any topic into an illustrated knowledge base article with a single command.
 
 ## 功能特性 / Features
 
+- **智能研究** — Claude 先基于自身知识生成专业研究资料，再搜索网络补充最新信息
 - **文件采集** — 支持 PDF、DOCX、PPTX、XLSX、HTML、图片、音频等格式，使用 [MarkItDown](https://github.com/microsoft/markitdown) 转换为 Markdown
-- **内容提取** — 读取转换后的 Markdown，交由 Claude 整理和组织
-- **知识可视化** — 集成 [Draw.io MCP](https://github.com/jgraph/drawio-mcp) 生成架构图、流程图、二乘二图等
-- **知识发布** — 通过 [FlowMind](https://flowmind.life) API 发布到知识管理平台
+- **内容整理** — Claude 阅读所有资料，提取精华，组织成结构化知识文章
+- **知识可视化** — 集成 [Draw.io](https://github.com/jgraph/drawio-mcp) 生成流程图、对比矩阵等，导出高清 PNG 嵌入文章
+- **一键发布** — 通过 [FlowMind](https://flowmind.life) API 发布带图文的知识文章，支持公开分享链接
+
+## 工作流程 / How It Works
+
+```
+/kbb 45岁男人如何有效护肤 --auto-share
+
+Step 1  Claude 知识库    基于训练知识生成 2-4 篇深度研究文件
+Step 2  网络搜索补充     DuckDuckGo 搜索 + 抓取相关文章
+Step 3  文件转换         MarkItDown 统一转换为 Markdown
+Step 4  内容整理         Claude 阅读全部资料，组织成结构化文章
+Step 5  图表生成         Draw.io 创建流程图/对比图 → 导出 PNG
+Step 6  发布             FlowMind 发布文章 + 上传图片 → 公开分享链接
+```
 
 ## 支持平台 / Supported Platforms
 
@@ -36,14 +50,87 @@ cd kbb
 2. 创建 Python 虚拟环境并安装 MarkItDown
 3. 安装 Node.js 依赖并编译
 4. 注册 KBB 为 Claude Code MCP 服务器
-5. （可选）注册 Draw.io MCP
-6. （可选）配置 FlowMind API
+5. 安装 `/kbb` 技能（slash command）
+6. （可选）注册 Draw.io MCP
+7. （可选）配置 FlowMind API
 
 安装完成后，重启 Claude Code，输入：
 
 ```
-/kbb ~/your/research/folder 你的研究主题
+/kbb 你感兴趣的研究主题
 ```
+
+## 使用方式 / Usage
+
+### 研究模式（零准备，只需一个主题）
+
+```
+/kbb 睡眠质量改善                          # 研究 → 整理 → 画图 → 发布
+/kbb 间歇性断食的科学依据 --auto-share      # 同上 + 生成公开分享链接
+```
+
+### 文件模式（已有研究资料）
+
+```
+/kbb ~/research/sleep 睡眠质量改善          # 使用已有文件
+/kbb ~/papers/ai-safety AI Safety --no-pub  # 只生成文章，不发布
+```
+
+### 参数说明
+
+| 参数 | 说明 |
+|------|------|
+| `<topic>` | 研究主题（必填） |
+| `<directory>` | 已有资料的目录（可选，省略则进入研究模式） |
+| `--auto-share` | 发布后生成公开链接，任何人无需登录即可查看 |
+| `--no-pub` | 只在本地生成文章，不发布到 FlowMind |
+
+## MCP 工具 / Tools
+
+| 工具 | 说明 |
+|------|------|
+| `kbb_research` | 搜索网络，抓取文章，保存为本地文件 |
+| `kbb_ingest` | 将目录中的文件转换为 Markdown（使用 MarkItDown） |
+| `kbb_extract` | 读取目录中所有 Markdown 文件的内容 |
+| `kbb_export_diagram` | 将 draw.io XML 导出为高清 PNG 图片 |
+| `kbb_publish` | 发布文章到 FlowMind，支持 `{{IMG:id}}` 占位符和 `auto_share` |
+| `kbb_upload_image` | 上传图片到 FlowMind 笔记，替换占位符 |
+| `kbb_list` | 列出已发布的知识文章 |
+| `kbb_pipeline` | 完整流水线：采集 → 提取 → 返回给 Claude 整理 |
+
+## 图文发布流程 / Image Publishing
+
+KBB 支持在文章中嵌入高清图表：
+
+```
+1. mcp__drawio__create_diagram(xml)     → 预览图表
+2. kbb_export_diagram(xml, filename)     → 导出为 PNG
+3. kbb_publish(title, content)           → 发布文章，内容中用 {{IMG:id}} 标记图片位置
+4. kbb_upload_image(note_id, png, id)    → 上传 PNG，FlowMind 自动替换占位符
+```
+
+**前置要求**：图表导出需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases)（提供 `drawio` CLI 命令）。
+
+## 研究模式详解 / Research Mode
+
+当只提供主题不提供目录时，KBB 自动进入研究模式，分两个阶段收集资料：
+
+### Phase A: Claude 知识库
+
+Claude 基于自身训练知识生成 2-4 个深度研究文件，覆盖主题的不同维度。这些文件：
+- 包含具体数据、研究引用、机制解释和实用建议
+- 按子主题组织（如护肤主题会分为"皮肤衰老科学"、"循证成分"、"日常流程"等）
+- 以 `00_claude_` 前缀命名，确保排在网络来源之前
+
+### Phase B: 网络搜索
+
+通过 DuckDuckGo 搜索并抓取相关网页，补充：
+- 最新产品推荐和价格信息
+- 地区特定的内容
+- 真实用户经验
+- Claude 训练截止日期之后的数据
+
+两个来源的优势互补：**Claude 提供深度和准确性，网络提供时效性和多样性**。
 
 ## 手动安装 / Manual Installation
 
@@ -63,56 +150,20 @@ python3 -m venv .venv
 # 3. 注册 KBB MCP 服务器
 claude mcp add kbb -- node "$(pwd)/dist/index.js"
 
-# 4. （可选）注册 Draw.io MCP
+# 4. 安装 /kbb 技能
+mkdir -p ~/.claude/skills/kbb
+cp skill/SKILL.md ~/.claude/skills/kbb/SKILL.md
+
+# 5. （可选）注册 Draw.io MCP
 claude mcp add drawio --transport sse https://mcp.draw.io/mcp
 
-# 5. （可选）配置 FlowMind
+# 6. （可选）配置 FlowMind
 mkdir -p ~/.flowmind && chmod 700 ~/.flowmind
 cat > ~/.flowmind/config.json << 'EOF'
 {"api_key": "your_api_key_here", "base_url": "https://flowmind.life/api/v1"}
 EOF
 chmod 600 ~/.flowmind/config.json
 ```
-
-## MCP 工具 / Tools
-
-| 工具 | 说明 |
-|------|------|
-| `kbb_ingest` | 将目录中的文件转换为 Markdown（使用 MarkItDown） |
-| `kbb_extract` | 读取目录中所有 Markdown 文件的内容 |
-| `kbb_export_diagram` | 将 draw.io XML 导出为高清 PNG 图片 |
-| `kbb_publish` | 将知识文章发布到 FlowMind，支持 `{{IMG:id}}` 图片占位符 |
-| `kbb_upload_image` | 上传图片到 FlowMind 笔记，替换占位符 |
-| `kbb_list` | 列出已发布的知识文章（需配置） |
-| `kbb_pipeline` | 完整流水线：采集 → 提取 → 返回给 Claude 整理（含图文发布指引） |
-
-## 使用示例 / Usage Example
-
-假设你在研究睡眠质量改善，已经收集了一些资料到 `~/research/sleep/` 目录：
-
-```
-你: "把 ~/research/sleep/ 目录下的文件处理成知识库文章，主题是睡眠质量改善"
-```
-
-Claude 会自动：
-1. 调用 `kbb_pipeline` 将所有文件转换为 Markdown
-2. 阅读所有内容，提取关键知识点
-3. 组织成结构化的知识文章
-4. 生成图表（决策流程图、对比矩阵等）并导出为 PNG
-5. 发布到 FlowMind，图片自动嵌入文章
-
-### 图文发布流程
-
-KBB 支持在文章中嵌入高清图表，完整流程如下：
-
-```
-Step 1: mcp__drawio__create_diagram(xml)     → 预览图表
-Step 2: kbb_export_diagram(xml, filename)     → 导出为 PNG，返回 placeholder_id
-Step 3: kbb_publish(title, content)           → 发布文章，内容中用 {{IMG:placeholder_id}} 标记图片位置
-Step 4: kbb_upload_image(note_id, png, id)    → 上传 PNG，FlowMind 自动替换占位符为图片
-```
-
-**前置要求**：图表导出需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases)（提供 `drawio` CLI 命令）。
 
 ## 配置 / Configuration
 
@@ -133,7 +184,7 @@ FlowMind 配置存储在 `~/.flowmind/config.json`：
 
 ### Draw.io MCP（可选）
 
-Draw.io MCP 用于生成知识图谱和各种图表。注册方式：
+Draw.io MCP 用于在终端预览图表。注册方式：
 
 ```bash
 claude mcp add drawio --transport sse https://mcp.draw.io/mcp
@@ -141,12 +192,26 @@ claude mcp add drawio --transport sse https://mcp.draw.io/mcp
 
 详情见：[drawio-mcp](https://github.com/jgraph/drawio-mcp)
 
+图表导出为 PNG 需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases)。
+
 ### Python 路径
 
 KBB 默认使用项目目录下的 `.venv/bin/python`。如果需要指定其他 Python 路径：
 
 ```bash
 export MARKITDOWN_PYTHON=/path/to/python3
+```
+
+## 示例 / Examples
+
+项目包含两个示例目录，可直接体验：
+
+```bash
+# 睡眠质量改善（4个研究文件）
+/kbb ./examples/sleep-quality 睡眠质量改善
+
+# 40岁男性增肌（4个研究文件）
+/kbb ./examples/muscle-building-40 40岁男性如何科学增肌
 ```
 
 ## 常见问题 / FAQ
@@ -159,6 +224,12 @@ A: FlowMind 是可选功能。运行 `./setup.sh` 配置，或手动创建 `~/.f
 
 **Q: MarkItDown 转换失败？**
 A: 确认 `.venv` 目录存在且 markitdown 已安装。可重新运行 `./setup.sh`。
+
+**Q: 研究模式搜索不到结果？**
+A: DuckDuckGo 搜索不需要 API key，但某些网站可能阻止抓取。Claude 的知识库内容仍会生成，网络搜索只是补充。
+
+**Q: 图表没有嵌入文章？**
+A: 需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases) 以提供 `drawio` CLI。未安装时文章正常发布但不含图表。
 
 **Q: Windows 支持？**
 A: 建议使用 WSL (Windows Subsystem for Linux)。
