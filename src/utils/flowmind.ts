@@ -35,12 +35,16 @@ export interface PublishResult {
   success: boolean;
   note_id: string;
   url: string;
+  share_url?: string;
 }
 
-export async function publishNote(title: string, content: string, tags?: string[]): Promise<PublishResult> {
+export async function publishNote(title: string, content: string, tags?: string[], autoShare?: boolean): Promise<PublishResult> {
   const body: Record<string, unknown> = { title, content };
   if (tags && tags.length > 0) {
     body.tags = tags;
+  }
+  if (autoShare) {
+    body.auto_share = true;
   }
 
   const result = await apiRequest("/notes", {
@@ -48,15 +52,21 @@ export async function publishNote(title: string, content: string, tags?: string[
     body: JSON.stringify(body),
   }) as Record<string, unknown>;
 
-  // FlowMind API returns { data: { id, ... } }
+  // FlowMind API returns { data: { id, share_url?, ... } }
   const data = (result.data || result) as Record<string, unknown>;
   const noteId = String(data.id || data.note_id || "");
 
-  return {
+  const publishResult: PublishResult = {
     success: true,
     note_id: noteId,
     url: `https://flowmind.life/notes/${noteId}`,
   };
+
+  if (data.share_url) {
+    publishResult.share_url = String(data.share_url);
+  }
+
+  return publishResult;
 }
 
 export interface NoteListResult {

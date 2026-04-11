@@ -68,7 +68,8 @@ const tools = [
     name: "kbb_publish",
     description:
       "Publish a knowledge article to FlowMind. " +
-      "Uploads a markdown article with title and optional tags.",
+      "Uploads a markdown article with title and optional tags. " +
+      "Set auto_share=true to generate a public share link accessible without login.",
     inputSchema: {
       type: "object" as const,
       properties: {
@@ -78,12 +79,16 @@ const tools = [
         },
         content: {
           type: "string",
-          description: "Markdown content of the article",
+          description: "Markdown content of the article. Use {{IMG:placeholder_id}} for image placeholders.",
         },
         tags: {
           type: "array",
           items: { type: "string" },
           description: "Optional tags/categories for the article",
+        },
+        auto_share: {
+          type: "boolean",
+          description: "When true, generates a public share URL accessible by anyone without login. Default: false.",
         },
       },
       required: ["title", "content"],

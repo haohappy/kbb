@@ -11,9 +11,10 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 ## Usage
 
 ```
-/kbb <directory> <topic>           # full pipeline: ingest → organize → diagrams → publish
-/kbb <directory> <topic> --no-pub  # skip publishing, just generate the article locally
-/kbb help                          # show this help
+/kbb <directory> <topic>                      # full pipeline: ingest → organize → diagrams → publish
+/kbb <directory> <topic> --auto-share         # publish + generate public share link (no login needed to view)
+/kbb <directory> <topic> --no-pub             # skip publishing, just generate the article locally
+/kbb help                                     # show this help
 ```
 
 ## Examples
@@ -24,8 +25,8 @@ Assistant: [Runs full pipeline: ingest files, organize content, generate diagram
 </example>
 
 <example>
-User: /kbb ./data/cholesterol 降胆固醇药物研究
-Assistant: [Same pipeline on a different topic]
+User: /kbb ./data/cholesterol 降胆固醇药物研究 --auto-share
+Assistant: [Same pipeline, publishes with a public share link anyone can view without login]
 </example>
 
 <example>
@@ -43,6 +44,7 @@ Extract from the user's input:
 - `directory` — path to the folder of source files (required)
 - `topic` — the subject/topic for the knowledge article (required)
 - `--no-pub` — if present, skip FlowMind publishing steps
+- `--auto-share` — if present, generate a public share link (anyone can view without login)
 
 If either `directory` or `topic` is missing, ask the user to provide them.
 
@@ -114,8 +116,9 @@ Call `kbb_publish` with:
 - `title`: a descriptive article title
 - `content`: the full article with `{{IMG:...}}` placeholders
 - `tags`: relevant tags based on the topic
+- `auto_share`: set to `true` if `--auto-share` flag was provided
 
-Record the returned `note_id`.
+Record the returned `note_id`. If `auto_share` was true, also record the `share_url` from the response.
 
 **6b. Upload images:**
 For each diagram, call `kbb_upload_image` with:
@@ -127,6 +130,7 @@ For each diagram, call `kbb_upload_image` with:
 **6c. Report completion:**
 Show the user:
 - The article URL on FlowMind
+- If `--auto-share` was used: the **public share URL** (from `share_url` in the response) — emphasize this is the link to share with anyone
 - Number of diagrams embedded
 - A brief summary of the article structure
 
