@@ -61,18 +61,44 @@ If `topic` is missing, ask the user to provide it.
 
 ### Step 1.5: Research (when no directory provided)
 
+Research has two phases: Claude's own knowledge + web search.
+
+**Phase A: Generate knowledge base from Claude's expertise**
+
+Before searching the web, use your own training knowledge to create 2-4 comprehensive research files covering the topic. Use the Write tool to save them to the output directory (e.g., `/tmp/kbb-research-<topic-slug>/`).
+
+Guidelines:
+- Write as detailed research notes, not as a finished article (the article is assembled later in Step 3)
+- Include specific data points, study references, mechanisms, and practical recommendations
+- Organize by sub-topics (e.g., for skincare: "science of aging skin", "evidence-based ingredients", "daily routine", "lifestyle factors")
+- Name files with `00_` prefix so they sort before web results (e.g., `00_claude_skin_aging_science.txt`, `00_claude_ingredients_evidence.txt`)
+- Each file should be 1500-3000 words covering one sub-topic in depth
+- Include caveats and nuance — this is research, not marketing
+
+**Phase B: Search the web for supplementary sources**
+
 Call `kbb_research` with:
 - `topic`: the research topic
-- `output_directory`: a temp directory (e.g., `/tmp/kbb-research-<topic-slug>`)
+- `output_directory`: the same directory from Phase A
 - `num_results`: 6 (default)
 
-This will search the web, fetch relevant articles, and save them as .txt files.
+This adds web search results alongside Claude's knowledge files. The web sources provide:
+- Latest product recommendations and pricing
+- Region-specific information
+- Real-world user experiences
+- Data that post-dates Claude's training cutoff
 
-Report progress: "Searched for '<topic>'. Found X articles, Y successfully downloaded."
+Report progress:
+```
+Research complete:
+- Claude knowledge: X files generated
+- Web search: Y articles found, Z successfully downloaded
+- Total sources: N files in <directory>
+```
 
-Show a brief list of the sources found (title + URL for each).
+Show a brief list of all sources (both Claude-generated and web-fetched).
 
-Set `directory` to the `output_directory` returned, then continue to Step 2.
+Set `directory` to the output directory, then continue to Step 2.
 
 ### Step 2: Ingest and extract
 
