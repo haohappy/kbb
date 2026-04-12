@@ -354,5 +354,8 @@ fi
 
 echo ""
 echo "Setup complete! Restart Claude Code to use KBB."
-echo "Try: /kbb ~/path/to/documents 你的主题"
+echo ""
+echo "Try:"
+echo "  /kbb ~/path/to/documents your subject"
+echo "  /kbb your subject --auto-share"
 echo ""
