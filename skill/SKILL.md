@@ -16,8 +16,8 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 /kbb <topic> --auto-share                     # research + pipeline + public share link
 /kbb <directory> <topic> --auto-share         # pipeline on existing files + public share link
 /kbb <directory> <topic> --no-pub             # skip publishing, just generate the article locally
-/kbb config                                   # check FlowMind configuration status
-/kbb config <api-key>                         # set FlowMind API key
+/kbb config-flowmind                          # check FlowMind configuration status
+/kbb config-flowmind <api-key>                # set FlowMind API key
 /kbb help                                     # show this help
 ```
 
@@ -59,9 +59,9 @@ Extract from the user's input:
 - If `directory` is provided and exists: **File mode** — skip to Step 2
 - If only `topic` is provided (no directory): **Research mode** — go to Step 1.5
 
-**Config mode:** If the first argument is `config`:
-- `/kbb config` → call `kbb_config` with `action: "status"` and show the result. Done.
-- `/kbb config <api-key>` → call `kbb_config` with `action: "set"` and `flowmind_api_key: <api-key>`. Done.
+**Config mode:** If the first argument is `config-flowmind`:
+- `/kbb config-flowmind` → call `kbb_config` with `action: "status"` and show the result. Done.
+- `/kbb config-flowmind <api-key>` → call `kbb_config` with `action: "set"` and `flowmind_api_key: <api-key>`. Done.
 
 If `topic` is missing, ask the user to provide it.
 
