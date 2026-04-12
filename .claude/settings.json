@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__kbb__kbb_config",
+      "mcp__kbb__kbb_research",
+      "mcp__kbb__kbb_ingest",
+      "mcp__kbb__kbb_extract",
+      "mcp__kbb__kbb_pipeline",
+      "mcp__kbb__kbb_export_diagram",
+      "mcp__kbb__kbb_publish",
+      "mcp__kbb__kbb_upload_image",
+      "mcp__kbb__kbb_list",
+      "mcp__drawio__create_diagram"
+    ]
+  }
+}

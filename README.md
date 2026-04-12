@@ -194,6 +194,33 @@ claude mcp add drawio --transport sse https://mcp.draw.io/mcp
 
 图表导出为 PNG 需要安装 [draw.io desktop](https://github.com/jgraph/drawio-desktop/releases)。
 
+### 自动允许工具执行
+
+KBB 项目自带 `.claude/settings.json`，在本项目目录内运行时所有 kbb 工具会自动执行，无需每次确认。
+
+如果你在**其他项目目录**中使用 `/kbb`，可以在该项目创建 `.claude/settings.json`：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__kbb__kbb_config",
+      "mcp__kbb__kbb_research",
+      "mcp__kbb__kbb_ingest",
+      "mcp__kbb__kbb_extract",
+      "mcp__kbb__kbb_pipeline",
+      "mcp__kbb__kbb_export_diagram",
+      "mcp__kbb__kbb_publish",
+      "mcp__kbb__kbb_upload_image",
+      "mcp__kbb__kbb_list",
+      "mcp__drawio__create_diagram"
+    ]
+  }
+}
+```
+
+或者在 Claude Code 运行时选择 "Yes, and don't ask again" 逐个授权。
+
 ### Python 路径
 
 KBB 默认使用项目目录下的 `.venv/bin/python`。如果需要指定其他 Python 路径：
