@@ -151,6 +151,68 @@ else
 fi
 
 # ──────────────────────────────────────────────
+# Step 6.5: Configure auto-allow permissions
+# ──────────────────────────────────────────────
+echo "Configuring tool permissions..."
+SETTINGS_FILE="$HOME/.claude/settings.json"
+KBB_PERMISSIONS=(
+  "mcp__kbb__kbb_config"
+  "mcp__kbb__kbb_research"
+  "mcp__kbb__kbb_ingest"
+  "mcp__kbb__kbb_extract"
+  "mcp__kbb__kbb_pipeline"
+  "mcp__kbb__kbb_export_diagram"
+  "mcp__kbb__kbb_publish"
+  "mcp__kbb__kbb_upload_image"
+  "mcp__kbb__kbb_list"
+  "mcp__drawio__create_diagram"
+)
+
+if command -v python3 &>/dev/null; then
+  python3 -c "
+import json, os, sys
+
+settings_file = '$SETTINGS_FILE'
+new_perms = $(python3 -c "import json; print(json.dumps([
+  'mcp__kbb__kbb_config',
+  'mcp__kbb__kbb_research',
+  'mcp__kbb__kbb_ingest',
+  'mcp__kbb__kbb_extract',
+  'mcp__kbb__kbb_pipeline',
+  'mcp__kbb__kbb_export_diagram',
+  'mcp__kbb__kbb_publish',
+  'mcp__kbb__kbb_upload_image',
+  'mcp__kbb__kbb_list',
+  'mcp__drawio__create_diagram'
+]))")
+
+# Read existing settings or start fresh
+settings = {}
+if os.path.exists(settings_file):
+    try:
+        with open(settings_file) as f:
+            settings = json.load(f)
+    except:
+        pass
+
+# Merge permissions
+perms = settings.get('permissions', {})
+allow = perms.get('allow', [])
+for p in new_perms:
+    if p not in allow:
+        allow.append(p)
+perms['allow'] = allow
+settings['permissions'] = perms
+
+with open(settings_file, 'w') as f:
+    json.dump(settings, f, indent=2)
+"
+  info "Tool permissions: configured (auto-allow all kbb tools)"
+else
+  warn "Tool permissions: skipped (python3 not available for JSON merge)"
+fi
+
+# ──────────────────────────────────────────────
 # Step 7 (optional): Register Draw.io MCP
 # ──────────────────────────────────────────────
 echo ""
