@@ -15,6 +15,7 @@ import { pipeline } from "./tools/pipeline.js";
 import { exportDiagram } from "./tools/export-diagram.js";
 import { uploadImage } from "./tools/upload-image.js";
 import { research } from "./tools/research.js";
+import { config } from "./tools/config.js";
 import { isFlowMindConfigured } from "./utils/config.js";
 
 const server = new Server(
@@ -23,6 +24,31 @@ const server = new Server(
 );
 
 const tools = [
+  {
+    name: "kbb_config",
+    description:
+      "Configure KBB settings. Use action='set' to save FlowMind API key, " +
+      "action='status' to check current configuration.",
+    inputSchema: {
+      type: "object" as const,
+      properties: {
+        action: {
+          type: "string",
+          enum: ["get", "set", "status"],
+          description: "'set' to configure, 'status' or 'get' to check current config",
+        },
+        flowmind_api_key: {
+          type: "string",
+          description: "FlowMind API key (required for action='set'). Get it from FlowMind → Settings → API Keys.",
+        },
+        flowmind_base_url: {
+          type: "string",
+          description: "FlowMind API base URL (default: https://flowmind.life/api/v1)",
+        },
+      },
+      required: ["action"],
+    },
+  },
   {
     name: "kbb_research",
     description:
@@ -246,6 +272,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     let result: unknown;
 
     switch (name) {
+      case "kbb_config":
+        result = await config(args as unknown as Parameters<typeof config>[0]);
+        break;
       case "kbb_research":
         result = await research(args as unknown as Parameters<typeof research>[0]);
         break;
