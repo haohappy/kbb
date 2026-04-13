@@ -136,8 +136,9 @@ cd kbb
 | `<file>` | 单个文件路径（单文件模式，支持 .md/.txt/.pdf/.docx 等） |
 | `<directory> <topic>` | 资料目录 + 主题（目录模式） |
 | `--diagram=type1,type2` | 指定图表类型（逗号分隔），不指定则自动选择 |
-| `--auto-share` | 发布后生成公开链接，任何人无需登录即可查看 |
-| `--no-pub` | 只在本地生成文章，不发布到 FlowMind |
+| `--auto-share` | 发布到 FlowMind + 生成公开链接（任何人无需登录即可查看） |
+| `--no-pub` | 不发布到 FlowMind，只在本地生成文章 |
+| （无参数） | 默认发布到 FlowMind（私有，需登录查看） |
 
 ## MCP 工具 / Tools
 
