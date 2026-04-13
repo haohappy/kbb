@@ -164,13 +164,14 @@ fi
 SKILL_DIR="$HOME/.claude/skills/kbb"
 SKILL_SRC="$SCRIPT_DIR/skill/SKILL.md"
 
-if [ -f "$SKILL_DIR/SKILL.md" ] && cmp -s "$SKILL_SRC" "$SKILL_DIR/SKILL.md" 2>/dev/null; then
+if [ -f "$SKILL_DIR/SKILL.md" ] && [ -f "$SKILL_DIR/HELP.txt" ] && cmp -s "$SKILL_SRC" "$SKILL_DIR/SKILL.md" 2>/dev/null; then
   STATUS_SKILL="installed"
   skip "/kbb skill: installed"
 else
   echo "Installing /kbb skill..."
   mkdir -p "$SKILL_DIR"
   cp "$SKILL_SRC" "$SKILL_DIR/SKILL.md" 2>/dev/null
+  cp "$SCRIPT_DIR/skill/HELP.txt" "$SKILL_DIR/HELP.txt" 2>/dev/null
   if [ -f "$SKILL_DIR/SKILL.md" ]; then
     STATUS_SKILL="installed"
     info "/kbb skill: installed"

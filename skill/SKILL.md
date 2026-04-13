@@ -105,38 +105,7 @@ Done — do not continue to other steps.
 - `/kbb config-flowmind` → call `kbb_config` with `action: "status"` and show the result. Done.
 - `/kbb config-flowmind <api-key>` → call `kbb_config` with `action: "set"` and `flowmind_api_key: <api-key>`. Done.
 
-**Help mode:** If the argument is `help`, show this formatted help and stop:
-
-```
-/kbb — 知识库构建器
-
-用法:
-  /kbb <topic>                              研究模式：Claude知识 + 网络搜索 → 文章 → 图表 → 发布
-  /kbb <file>                               单文件模式：读取文档 → 总结 → 图表 → 发布
-  /kbb <directory> <topic>                   目录模式：处理目录中所有文件 → 文章 → 图表 → 发布
-  /kbb diagram list                          列出所有可用图表类型（12种）
-  /kbb config-flowmind                       查看 FlowMind 配置状态
-  /kbb config-flowmind <api-key>             设置 FlowMind API Key
-  /kbb help                                  显示本帮助
-
-参数:
-  --auto-share       发布到 FlowMind + 生成公开链接（任何人无需登录可查看）
-  --no-pub           不发布，只在本地生成文章
-  --diagram=type     指定图表类型，逗号分隔（如 --diagram=mindmap,flowchart）
-  （无参数）          默认发布到 FlowMind（私有，需登录查看）
-
-未配置 FlowMind？
-  不会报错。自动切换到 --no-pub 模式，文章在本地生成。
-  随时可通过 /kbb config-flowmind <key> 启用发布功能。
-
-示例:
-  /kbb 睡眠质量改善 --auto-share
-  /kbb docs/report.md --diagram=architecture --auto-share
-  /kbb ~/research/sleep 睡眠质量改善
-  /kbb 间歇性断食 --diagram=mindmap,flowchart --no-pub
-```
-
-Done — do not continue to other steps.
+**Help mode:** If the argument is `help`, read `~/.claude/skills/kbb/HELP.txt` using the Read tool and output its content verbatim as a code block. Do not reformat, summarize, or add anything. Done — do not continue to other steps.
 
 If `topic` is missing, ask the user to provide it.
 
