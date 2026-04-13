@@ -15,6 +15,10 @@ An MCP server for Claude Code that turns any topic into an illustrated knowledge
 示例：
 https://flowmind.life/share/note/beb348f8-3479-4601-9878-05f5b4496268
 
+图文并茂，容易理解：
+
+![KBB 生成的知识库文章示例](docs/images/kbb-article-example.png)
+
 ## 工作流程 / How It Works
 
 ```
