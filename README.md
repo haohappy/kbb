@@ -13,9 +13,9 @@ An MCP server for Claude Code that turns any topic into an illustrated knowledge
 - **一键发布** — 通过 [FlowMind](https://flowmind.life) API 发布带图文的知识文章，支持公开分享链接
 
 本工具生成的文章排版优美、图文并茂，容易理解。
-[查看示例1: 40岁男性如何科学增肌：完整指南]
+- [查看示例1: 40岁男性如何科学增肌：完整指南]
 (https://flowmind.life/share/note/e5fef824-6551-4e6d-b46d-816c163928bd) 
-[查看示例2:通过 AWS Bedrock 使用 Claude Code 完全指南]
+- [查看示例2:通过 AWS Bedrock 使用 Claude Code 完全指南]
 (https://flowmind.life/share/note/beb348f8-3479-4601-9878-05f5b4496268)
 
 ![KBB 生成的知识库文章示例](docs/images/kbb-article-example.png)
