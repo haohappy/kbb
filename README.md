@@ -103,6 +103,33 @@ cd kbb
 /kbb help                                  # 显示帮助
 ```
 
+### 指定图表类型
+
+```
+/kbb diagram list                                     # 列出所有可用图表类型
+/kbb 睡眠质量改善 --diagram=mindmap,flowchart           # 指定生成思维导图和流程图
+/kbb docs/report.md --diagram=architecture --auto-share # 单文件 + 指定架构图
+```
+
+不指定 `--diagram` 时，Claude 会根据内容自动选择最合适的图表类型。
+
+支持的 12 种图表类型：
+
+| 类型 | 名称 | 适合场景 |
+|------|------|---------|
+| `flowchart` | 流程图 | 决策路径、操作步骤、排错指南 |
+| `mindmap` | 思维导图 | 主题概览、知识分支、头脑风暴 |
+| `matrix` | 二维矩阵 | 对比分析（风险vs收益、证据vs安全性） |
+| `architecture` | 架构图 | 系统设计、技术栈、基础设施 |
+| `timeline` | 时间线 | 历史事件、项目阶段、路线图 |
+| `comparison` | 对比表 | 产品对比、方案优缺点 |
+| `pyramid` | 金字塔 | 优先级排名、证据层级 |
+| `venn` | 韦恩图 | 概念异同、集合关系 |
+| `sequence` | 序列图 | API调用、用户流程、交互时序 |
+| `orgchart` | 组织图 | 层级结构、分类体系 |
+| `swimlane` | 泳道图 | 跨团队/跨角色流程 |
+| `cycle` | 循环图 | 迭代流程、反馈循环 |
+
 ### 参数说明
 
 | 参数 | 说明 |
@@ -110,6 +137,7 @@ cd kbb
 | `<topic>` | 研究主题（研究模式） |
 | `<file>` | 单个文件路径（单文件模式，支持 .md/.txt/.pdf/.docx 等） |
 | `<directory> <topic>` | 资料目录 + 主题（目录模式） |
+| `--diagram=type1,type2` | 指定图表类型（逗号分隔），不指定则自动选择 |
 | `--auto-share` | 发布后生成公开链接，任何人无需登录即可查看 |
 | `--no-pub` | 只在本地生成文章，不发布到 FlowMind |
 
@@ -117,6 +145,7 @@ cd kbb
 
 | 工具 | 说明 |
 |------|------|
+| `kbb_config` | 配置 FlowMind API Key（`/kbb config-flowmind`） |
 | `kbb_research` | 搜索网络，抓取文章，保存为本地文件 |
 | `kbb_ingest` | 将目录中的文件转换为 Markdown（使用 MarkItDown） |
 | `kbb_extract` | 读取目录中所有 Markdown 文件的内容 |
