@@ -17,6 +17,8 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 /kbb <topic> --auto-share                     # research + pipeline + public share link
 /kbb <directory> <topic> --auto-share         # pipeline on existing files + public share link
 /kbb <directory> <topic> --no-pub             # skip publishing, just generate the article locally
+/kbb <topic> --diagram=flowchart,mindmap       # specify diagram types to generate
+/kbb diagram list                             # list all available diagram types
 /kbb config-flowmind                          # check FlowMind configuration status
 /kbb config-flowmind <api-key>                # set FlowMind API key
 /kbb help                                     # show this help
@@ -45,6 +47,16 @@ Assistant: [Reads the single file, summarizes with diagrams, publishes with publ
 </example>
 
 <example>
+User: /kbb 睡眠质量改善 --diagram=mindmap,flowchart --auto-share
+Assistant: [Research + generates a mind map and a flowchart specifically, then publishes]
+</example>
+
+<example>
+User: /kbb diagram list
+Assistant: [Shows all available diagram types with descriptions]
+</example>
+
+<example>
 User: /kbb ~/papers/ai-safety AI Safety --no-pub
 Assistant: [Uses existing files, generates article and diagrams locally without publishing]
 </example>
@@ -60,6 +72,29 @@ Extract from the user's input:
 - `topic` — the subject/topic for the knowledge article (required)
 - `--no-pub` — if present, skip FlowMind publishing steps
 - `--auto-share` — if present, generate a public share link (anyone can view without login)
+- `--diagram=type1,type2` — if present, only generate these specific diagram types (comma-separated). If omitted, Claude auto-selects the best types for the content.
+
+**Diagram list mode:** If the arguments are `diagram list`:
+Show the full diagram type catalog below and stop:
+
+| Type | Name | Description | Best for |
+|------|------|-------------|----------|
+| `flowchart` | 流程图 | Step-by-step paths with decision diamonds | Processes, decision trees, troubleshooting |
+| `mindmap` | 思维导图 | Central topic with branching sub-topics | Topic overview, brainstorming, concept breakdown |
+| `matrix` | 二维矩阵 | 2x2 or NxN grid comparing two dimensions | Comparisons (risk vs reward, effort vs impact) |
+| `architecture` | 架构图 | Components, layers, and connections | System design, tech stacks, infrastructure |
+| `timeline` | 时间线 | Events ordered chronologically | History, project phases, roadmaps |
+| `comparison` | 对比表 | Side-by-side comparison of items | Product comparison, pros/cons |
+| `pyramid` | 金字塔 | Hierarchical layers from top to bottom | Priority ranking, evidence levels |
+| `venn` | 韦恩图 | Overlapping circles showing relationships | Similarities/differences between groups |
+| `sequence` | 序列图 | Interactions between entities over time | API calls, user flows, communication |
+| `orgchart` | 组织图 | Hierarchical tree structure | Organization, taxonomy, classification |
+| `swimlane` | 泳道图 | Process flow with responsibility lanes | Cross-team workflows, RACI |
+| `cycle` | 循环图 | Steps in a repeating loop | Iterative processes, feedback loops |
+
+Example: `/kbb 睡眠质量改善 --diagram=mindmap,flowchart --auto-share`
+
+Done — do not continue to other steps.
 
 **Determine mode:**
 - If the first argument is a path to a **single file** (not a directory): **Single-file mode** — go to Step 1.6
@@ -141,13 +176,26 @@ Read through all returned documents and create a well-structured knowledge artic
 - Write in the same language as the topic (Chinese topic → Chinese article)
 - Aim for completeness while staying concise
 
-### Step 4: Identify and create diagrams
+### Step 4: Create diagrams
 
-Review the article and identify 2-4 concepts that benefit from visualization:
-- **Decision flowcharts** — step-by-step paths (use rhombus for decisions, rounded rectangles for actions)
-- **2x2 matrices** — two-axis comparisons (e.g., evidence vs safety)
-- **Architecture diagrams** — system overviews with components and connections
-- **Process flows** — sequential steps with arrows
+**If `--diagram` was specified:** Generate exactly the requested diagram types, one diagram per type. Map each type to its visual style:
+
+| Type | XML approach |
+|------|-------------|
+| `flowchart` | Rectangles (rounded) + diamonds (rhombus) + arrows. Use colors to distinguish actions vs decisions. |
+| `mindmap` | Central node with branching sub-topics. Use `swimlane` containers or hierarchical layout. Radial or tree structure. |
+| `matrix` | Two axes with items positioned by their scores. Quadrant labels. Dashed divider lines. |
+| `architecture` | Layered containers (`swimlane`), component boxes, directional arrows between layers. |
+| `timeline` | Horizontal or vertical sequence of events with dates/phases. Connected by arrows. |
+| `comparison` | Side-by-side columns or rows comparing features/attributes. Table-like layout with color coding. |
+| `pyramid` | Stacked horizontal layers, widest at bottom. Use different colors per tier. |
+| `venn` | Overlapping ellipses with `opacity=50`. Labels in overlap and non-overlap regions. |
+| `sequence` | Vertical lifelines with horizontal arrows between participants. Time flows downward. |
+| `orgchart` | Tree structure with boxes connected top-down. Use containers for departments. |
+| `swimlane` | Horizontal or vertical lanes (`swimlane` style) with process steps flowing across lanes. |
+| `cycle` | Circular arrangement of steps with curved arrows connecting them in a loop. |
+
+**If `--diagram` was NOT specified:** Auto-select 2-4 diagram types that best fit the content. Prefer variety (e.g., don't generate two flowcharts).
 
 For each diagram:
 
