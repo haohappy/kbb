@@ -11,6 +11,9 @@ An MCP server for Claude Code that turns any topic into an illustrated knowledge
 - **内容整理** — Claude 阅读所有资料，提取精华，组织成结构化知识文章
 - **知识可视化** — 集成 [Draw.io](https://github.com/jgraph/drawio-mcp) 生成流程图、对比矩阵等，导出高清 PNG 嵌入文章
 - **一键发布** — 通过 [FlowMind](https://flowmind.life) API 发布带图文的知识文章，支持公开分享链接
+知识文章图文并茂，容易理解。
+示例：
+https://flowmind.life/share/note/beb348f8-3479-4601-9878-05f5b4496268
 
 ## 工作流程 / How It Works
 
