@@ -84,8 +84,9 @@ cd kbb
 ```
 
 ### 配置Flowmind
-1. 访问https://flowmind.life，注册账号。
-2. 登录->Settings->API Keys->Create Key
+1. 访问https://flowmind.life
+2. 注册账号
+3. 登录->Settings->API Keys->Create Key
 
 ```
 /kbb config-flowmind                       # 查看 FlowMind 配置状态
