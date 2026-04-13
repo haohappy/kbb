@@ -140,6 +140,8 @@ cd kbb
 | `--no-pub` | 不发布到 FlowMind，只在本地生成文章 |
 | （无参数） | 默认发布到 FlowMind（私有，需登录查看） |
 
+> **没有 FlowMind 账号？** 没关系。如果未配置 FlowMind API Key，KBB 会自动切换到 `--no-pub` 模式，文章在本地生成，不会报错。你可以随时通过 `/kbb config-flowmind` 配置 API Key 来启用发布功能。
+
 ## MCP 工具 / Tools
 
 | 工具 | 说明 |
