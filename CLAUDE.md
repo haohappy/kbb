@@ -44,14 +44,18 @@ kbb_upload_image(note_id, png_path, placeholder_id) — for each diagram
 Published article with embedded images + public share link
 ```
 
-## Two Modes
+## Three Modes
 
 ```
 # Research mode (no pre-existing files)
 /kbb 睡眠质量改善
 /kbb 间歇性断食 --auto-share
 
-# File mode (existing research files)
+# Single-file mode (read one document, summarize + publish)
+/kbb docs/report.md --auto-share
+/kbb ~/Downloads/paper.pdf
+
+# Directory mode (process all files in a folder)
 /kbb ~/research/sleep 睡眠质量改善
 ```
 

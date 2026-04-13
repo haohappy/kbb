@@ -62,26 +62,37 @@ cd kbb
 
 ## 使用方式 / Usage
 
-### 研究模式（零准备，只需一个主题）
+### 三种模式
 
 ```
-/kbb 睡眠质量改善                          # 研究 → 整理 → 画图 → 发布
+# 研究模式（零准备，只需一个主题）
+/kbb 睡眠质量改善                          # Claude知识 + 网络搜索 → 整理 → 画图 → 发布
 /kbb 间歇性断食的科学依据 --auto-share      # 同上 + 生成公开分享链接
-```
 
-### 文件模式（已有研究资料）
+# 单文件模式（读取一个文档，总结并发布）
+/kbb docs/report.md --auto-share           # 读取 → 总结 → 插图 → 发布
+/kbb ~/Downloads/paper.pdf                 # 支持 PDF、DOCX、PPTX 等格式
 
-```
+# 目录模式（处理一个目录中的所有文件）
 /kbb ~/research/sleep 睡眠质量改善          # 使用已有文件
 /kbb ~/papers/ai-safety AI Safety --no-pub  # 只生成文章，不发布
+```
+
+### 配置命令
+
+```
+/kbb config-flowmind                       # 查看 FlowMind 配置状态
+/kbb config-flowmind <api-key>             # 设置 FlowMind API Key
+/kbb help                                  # 显示帮助
 ```
 
 ### 参数说明
 
 | 参数 | 说明 |
 |------|------|
-| `<topic>` | 研究主题（必填） |
-| `<directory>` | 已有资料的目录（可选，省略则进入研究模式） |
+| `<topic>` | 研究主题（研究模式） |
+| `<file>` | 单个文件路径（单文件模式，支持 .md/.txt/.pdf/.docx 等） |
+| `<directory> <topic>` | 资料目录 + 主题（目录模式） |
 | `--auto-share` | 发布后生成公开链接，任何人无需登录即可查看 |
 | `--no-pub` | 只在本地生成文章，不发布到 FlowMind |
 
