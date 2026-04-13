@@ -40,6 +40,7 @@ Step 6  发布             FlowMind 发布文章 + 上传图片 → 公开分享
 - [Node.js](https://nodejs.org/) >= 18
 - [Python](https://www.python.org/) >= 3.10
 - [Claude Code](https://claude.ai/download) CLI
+- [Flowmind账号](https://flowmind.life)  
 
 ## 快速开始 / Quick Start
 
@@ -82,11 +83,13 @@ cd kbb
 /kbb ~/papers/ai-safety AI Safety --no-pub  # 只生成文章，不发布
 ```
 
-### 配置命令
+### 配置Flowmind
+1. 访问https://flowmind.life，注册账号。
+2. 登录->Settings->API Keys->Create Key
 
 ```
 /kbb config-flowmind                       # 查看 FlowMind 配置状态
-/kbb config-flowmind <api-key>             # 设置 FlowMind API Key
+/kbb config-flowmind <api-key>             # 设置 FlowMind API Key，填入上面Create Key获得的API Key  
 /kbb help                                  # 显示帮助
 ```
 
