@@ -12,6 +12,7 @@ Turn a folder of raw files into a polished, illustrated knowledge base article.
 
 ```
 /kbb <topic>                                  # research + full pipeline (auto-search, no pre-existing files needed)
+/kbb <file> --auto-share                      # read a single file, summarize + diagrams + publish
 /kbb <directory> <topic>                      # full pipeline on existing files: ingest → organize → diagrams → publish
 /kbb <topic> --auto-share                     # research + pipeline + public share link
 /kbb <directory> <topic> --auto-share         # pipeline on existing files + public share link
@@ -39,6 +40,11 @@ Assistant: [Searches web, builds article, publishes with a public share link any
 </example>
 
 <example>
+User: /kbb docs/architecture.md --auto-share
+Assistant: [Reads the single file, summarizes with diagrams, publishes with public share link]
+</example>
+
+<example>
 User: /kbb ~/papers/ai-safety AI Safety --no-pub
 Assistant: [Uses existing files, generates article and diagrams locally without publishing]
 </example>
@@ -56,8 +62,9 @@ Extract from the user's input:
 - `--auto-share` — if present, generate a public share link (anyone can view without login)
 
 **Determine mode:**
-- If `directory` is provided and exists: **File mode** — skip to Step 2
-- If only `topic` is provided (no directory): **Research mode** — go to Step 1.5
+- If the first argument is a path to a **single file** (not a directory): **Single-file mode** — go to Step 1.6
+- If `directory` is provided and exists as a **directory**: **File mode** — skip to Step 2
+- If only `topic` is provided (no path): **Research mode** — go to Step 1.5
 
 **Config mode:** If the first argument is `config-flowmind`:
 - `/kbb config-flowmind` → call `kbb_config` with `action: "status"` and show the result. Done.
@@ -105,6 +112,17 @@ Research complete:
 Show a brief list of all sources (both Claude-generated and web-fetched).
 
 Set `directory` to the output directory, then continue to Step 2.
+
+### Step 1.6: Single-file mode
+
+When the user provides a path to a single file (e.g., `/kbb docs/report.md --auto-share`):
+
+1. **Read the file** using the Read tool. If the file is not plain text/markdown (e.g., PDF, DOCX), use `kbb_ingest` to convert it first.
+2. **Extract the topic** from the file's title, first heading, or filename.
+3. **Use the file content as the sole source material** — skip directly to Step 3 (organize content). No web search or Claude knowledge generation needed since the user already has their source document.
+4. Continue with Step 4 (diagrams), Step 5 (placeholders), and Step 6 (publish) as normal.
+
+This mode is useful for quickly summarizing and publishing a single document with diagrams.
 
 ### Step 2: Ingest and extract
 
