@@ -71,7 +71,7 @@ Extract from the user's input:
 - `directory` — path to the folder of source files (optional — if omitted, research mode is activated)
 - `topic` — the subject/topic for the knowledge article (required)
 - `--no-pub` — if present, skip FlowMind publishing steps
-- `--auto-share` — if present, generate a public share link (anyone can view without login)
+- `--auto-share` — if present, generate a public share link (anyone can view without login). **If this flag is NOT in the user's input, the article MUST remain private. Never assume or infer this flag.**
 - `--diagram=type1,type2` — if present, only generate these specific diagram types (comma-separated). If omitted, Claude auto-selects the best types for the content.
 
 **Diagram list mode:** If the arguments are `diagram list`:
@@ -242,7 +242,7 @@ Call `kbb_publish` with:
 - `title`: a descriptive article title
 - `content`: the full article with `{{IMG:...}}` placeholders
 - `tags`: relevant tags based on the topic
-- `auto_share`: set to `true` if `--auto-share` flag was provided
+- `auto_share`: set to `true` **ONLY** if `--auto-share` flag was explicitly provided by the user. If the user did NOT include `--auto-share`, you MUST set this to `false` or omit it entirely. Never default to public sharing.
 
 Record the returned `note_id`. If `auto_share` was true, also record the `share_url` from the response.
 

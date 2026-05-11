@@ -131,7 +131,7 @@ const tools = [
     description:
       "Publish a knowledge article to FlowMind. " +
       "Uploads a markdown article with title and optional tags. " +
-      "Set auto_share=true to generate a public share link accessible without login.",
+      "IMPORTANT: auto_share defaults to false (private). Only set auto_share=true when the user explicitly passes --auto-share. Never auto-enable sharing.",
     inputSchema: {
       type: "object" as const,
       properties: {
@@ -150,7 +150,7 @@ const tools = [
         },
         auto_share: {
           type: "boolean",
-          description: "When true, generates a public share URL accessible by anyone without login. Default: false.",
+          description: "MUST be false unless the user explicitly provided --auto-share flag. When true, generates a public share URL accessible by anyone without login. Default: false. Do NOT set to true by default.",
         },
       },
       required: ["title", "content"],
