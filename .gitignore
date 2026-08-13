@@ -7,3 +7,4 @@ examples/*/_kbb_output/
 .mcp.json
 *.tgz
 .loopwise/
+drafts/
